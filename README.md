@@ -103,7 +103,11 @@ The remediation engine operates as a closed-loop automation pipeline that decoup
 
 ---
 
-### 5. Unified System Observability & Tracing 
+---
 
-* **CloudWatch Logs & Metrics**: Enabled active streaming logging across all processing blocks. The Lambda runtime writes detailed invocation outputs directly to the `/aws/lambda/CapstoneEvaluator` log group (documented in `03_cloudwatch_logs.png.png`).
-* **Active Request Tracing via AWS X-Ray**: Configured AWS X-Ray tracing configurations (`Mode=Active`) directly inside the Lambda layer parameters. This captures downstream execution latency metrics and traces the runtime history of events as they pass through your services.
+### 5. Unified System Observability via Amazon CloudWatch 
+
+* **Continuous Log Ingestion**: Enabled active execution streaming logs for all compute runtimes. The Lambda engine writes standard execution details directly into the `/aws/lambda/CapstoneEvaluator` log group.
+* **Granular Trace Visibility**: Execution history streams capture precise timestamp records, entry parameters, and functional return values (documented cleanly in `03_cloudwatch_logs.png.png`).
+* **Resource Performance Metrics**: CloudWatch automatically tracks invocation counts, error rates, and system latency graphs to provide a unified observability dashboard across the remediation pipeline.
+
