@@ -33,7 +33,7 @@
 
 This core architectural component serves as the automated compliance engine for the system, providing continuous resource configuration tracking and near real-time drift evaluation.
 
-### 📋 Rubric Evaluation Criteria Alignment
+### 📋  Criteria Alignment
 * **Rule Creation**: Configured the AWS Managed Baseline Rule `restricted-ssh` (AWS Identifier: `INCOMING_SSH_DISABLED`).
 * **Compliance Evaluation**: Inspects the network model of incoming security group configurations, specifically evaluating `AWS::EC2::SecurityGroup` resource classes within the Stockholm region (`eu-north-1`).
 * **Non-Compliant Resource Detection**: Successfully flagged structural drift when a user-created resource (`vulnerable-test-sg`) exposed ingress traffic over Port 22 to the public internet (`0.0.0.0/0`).
