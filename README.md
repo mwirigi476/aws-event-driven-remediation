@@ -56,7 +56,7 @@ The remediation engine operates as a closed-loop automation pipeline that decoup
 
 ---
 
-### 1. Amazon EventBridge Routing & Fan-Out Matrix (10/10 Marks)
+### 1. Amazon EventBridge Routing & Fan-Out Matrix
 
 * **Precise Event Pattern Definition**: Implemented an explicit event matching pattern to filter out noise and target specific security events, avoiding over-broad matching.
   ```json
@@ -78,16 +78,14 @@ The remediation engine operates as a closed-loop automation pipeline that decoup
 
 ---
 
-### 2. Amazon SQS & Kinesis Data Stream Ingestion (10/10 Marks)
-
+### 2. Amazon SQS & Kinesis Data Stream Ingestion
 * **Asynchronous SQS Audit Log**: Created `capstone-audit-queue` as an encrypted standard storage buffer. Updated the SQS Access Policy to grant `://amazonaws.com` explicit `sqs:SendMessage` permissions, making compliance records visible and consumable.
 * **Real-Time Kinesis Data Stream**: Configured `capstone-event-stream` using provisioned shard capacity (`ShardCount=1`). This stream continuously ingests incoming JSON records, functioning as an active real-time data ingestion layer for security auditing.
 * **Error Handling & Resiliency**: Leveraged native retry policies alongside EventBridge structural validations to handle system faults and backpressure without losing event messages.
 
 ---
 
-### 3. AWS Lambda Compute & Payload Processing (10/10 Marks)
-
+### 3. AWS Lambda Compute & Payload Processing 
 * **Deterministic Python Handler**: Deployed `CapstoneEvaluator` using Python. The execution runtime processes the standard AWS Config payload event dictionary, maps the nested parameters array, and isolates the target asset IDs:
   ```python
   resource_id = event.get('detail', {}).get('newEvaluationResult', {}).get('resourceId')
@@ -97,7 +95,7 @@ The remediation engine operates as a closed-loop automation pipeline that decoup
 
 ---
 
-### 4. AWS Step Functions State Machine Orchestration (15/15 Marks)
+### 4. AWS Step Functions State Machine Orchestration 
 
 * **Deterministic Workflow Design**: Built and executed `CapstoneAutoRemediationEngine` using Amazon States Language (ASL) and standard JSONPath querying.
 * **Conditional Transitions & Decision Trees**: Integrated a choice state engine (`IsNonCompliant`) that branches dynamically based on upstream metrics. Compliant statuses drop out safely to a `Succeed` termination node (`SuccessEnd`), while drift anomalies route to the remediation track.
@@ -105,7 +103,7 @@ The remediation engine operates as a closed-loop automation pipeline that decoup
 
 ---
 
-### 5. Unified System Observability & Tracing (10/10 Marks)
+### 5. Unified System Observability & Tracing 
 
 * **CloudWatch Logs & Metrics**: Enabled active streaming logging across all processing blocks. The Lambda runtime writes detailed invocation outputs directly to the `/aws/lambda/CapstoneEvaluator` log group (documented in `03_cloudwatch_logs.png.png`).
 * **Active Request Tracing via AWS X-Ray**: Configured AWS X-Ray tracing configurations (`Mode=Active`) directly inside the Lambda layer parameters. This captures downstream execution latency metrics and traces the runtime history of events as they pass through your services.
