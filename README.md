@@ -16,13 +16,16 @@
 ## Proof of Execution Logs & Status Verifications
 
 ### 1. AWS Config Compliance Event Identification
-![Config Rule](./01_config_rule.png)
+## Proof of Execution Logs & Status Verifications
+
+### 1. AWS Config Compliance Event Identification
+![Config Rule](./01_config_rule.png.png)
 
 ### 2. Step Functions Automated Success Tree Run
-![Step Functions Run](./02_step_functions_success.png)
+![Step Functions Run](./02_step_functions_success.png.png)
 
 ### 3. Lambda Core Event Broker Processing Logs (CloudWatch)
-![CloudWatch Traces](./03_cloudwatch_logs.png)
+![CloudWatch Traces](./03_cloudwatch_logs.png.png)
 
 ### 4. Cleansed Architecture State Following Post-Remediation Check
-![Remediated Environment State](./04_remediated_sg.png)
+![Remediated Environment State](./04_remediated_sg.png.png)
