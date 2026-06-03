@@ -1,0 +1,36 @@
+{
+  "Comment": "Capstone Auto-Remediation Workflow via AWS SSM",
+  "StartAt": "EvaluateEvent",
+  "States": {
+    "EvaluateEvent": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-north-1:093796422314:function:CapstoneEvaluator",
+      "Next": "IsNonCompliant"
+    },
+    "IsNonCompliant": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.complianceStatus",
+          "StringEquals": "NON_COMPLIANT",
+          "Next": "RemediateSecurityGroup"
+        }
+      ],
+      "Default": "SuccessEnd"
+    },
+    "RemediateSecurityGroup": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::aws-sdk:ssm:startAutomationExecution",
+      "Parameters": {
+        "DocumentName": "AWS-DisablePublicAccessForSecurityGroup",
+        "Parameters": {
+          "GroupId.$": "States.Array($.resourceId)"
+        }
+      },
+      "Next": "SuccessEnd"
+    },
+    "SuccessEnd": {
+      "Type": "Succeed"
+    }
+  }
+}
